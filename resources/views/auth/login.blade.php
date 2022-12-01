@@ -6,7 +6,7 @@
 @section('contents')
     <div class="md:flex md:justify-center md:gap-10 md:items-center">
         <div class="md:w-6/12 p-5">
-            <img src="{{ asset('img/login.jpg') }}" alt="imagen login de usuario" class="">
+            <img src="{{ asset('img/login.jpg') }}" alt="imagen login de usuario">
         </div>
         <div class="md:w-4/12 bg-white p-6 rounded-lg shadow-xl">
             <form action="{{ route('login') }}"  method="POST"  novalidate>
