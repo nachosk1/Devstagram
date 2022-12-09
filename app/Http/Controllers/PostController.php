@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -12,12 +13,16 @@ class PostController extends Controller
     //antes de entrar al index pasa por el contructor, la cual el middlware tiene una propia funcion que lo direcciona a una vista llamada login
     public function __construct()
     {
-        $this->middleware("auth");  //antes de ejecutar el index, se va ejecutar el middleware para ver si el usuario esta autenticado, permitiendo proteger la ruta
+        $this->middleware("auth")->except('show', 'index');  //antes de ejecutar el index, se va ejecutar el middleware para ver si el usuario esta autenticado, permitiendo proteger la ruta
     }
     
     public function index(User $user){
+        //$posts = Post::where('user_id', $user->id)->paginate(4);
+        //$posts = Post::where('user_id', $user->id)->get();
+        $posts = Post::where('user_id', $user->id)->simplePaginate(4);
         return view("dashboard", [
-            "user" => $user
+            "user" => $user,
+            "posts" => $posts
         ]);
     }
 
@@ -47,12 +52,41 @@ class PostController extends Controller
         ]);*/
 
         //Otra forma de registrar un post
-        $post = new Post;
+        /*$post = new Post;
         $post->title = $request->title;
         $post->description = $request->description;
         $post->image = $request->image;
         $post->user_id = auth()->user()->id;
-        $post->save();
+        $post->save();*/
+
+        //Otra forma
+        $request->user()->posts()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => $request->image,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return redirect()->route('posts.index', auth()->user()->username);
+    }
+
+    public function show(User $user, Post $post){
+        return view('posts.show',[
+            'post' => $post,
+            'user' => $user
+        ]);
+    }
+
+    public function destroy(Post $post){
+        $this->authorize('delete', $post);
+        $post->delete();
+
+        //Eliminar la imagen
+        $image_path = public_path('uploads/' . $post->image);
+
+        if(File::exists($image_path)){
+            unlink($image_path);
+        }
 
         return redirect()->route('posts.index', auth()->user()->username);
     }
