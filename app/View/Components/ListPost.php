@@ -6,14 +6,11 @@ use Illuminate\View\Component;
 
 class ListPost extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $posts;
+    
+    public function __construct($posts)
     {
-        //
+        $this->posts = $posts;
     }
 
     /**
