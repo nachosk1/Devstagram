@@ -8,11 +8,11 @@
     <div class="flex justify-center">
         <div class="w-full md:w-8/12 lg:w-6/12 flex flex-col items-center md:flex-row">
             <div class="w-8/12 lg:w-6/12 px-5 ">
-                <img src="{{ $user->image ? asset("profiles"). '/' . $user->image : asset('img/user.png') }}" alt="imagen usuario" class="w-4/5 rounded-full">
+                <img src="{{ $user->image ? asset("profiles"). '/' . $user->image : asset('img/user.png') }}" alt="imagen usuario" class="rounded-full">
             </div>
             <div class="md:w-8/12 lg:w-6/12 px-5 flex flex-col items-center md:justify-center md:items-start py-10 md:py-10">
                 <div class="flex items-center gap-2 mb-5">
-                    <p class="text-gray-700 text-2xl ">{{ $user->username }}</p>
+                    <p class="text-gray-700 text-2xl">{{ $user->username }}</p>
 
                     @auth
                         @if ($user->id === auth()->user()->id)
@@ -59,10 +59,10 @@
     </div>
 
     <section class="container mx-auto mt-10">
-        <h2 class="text-4xl text-center font-black my-10">Publicaciones</h2>
+        <h2 class="text-3xl text-center font-black my-10">Publicaciones</h2>
 
         @if ($posts->count())
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-4">
                 @foreach ($posts as $post)
                     <div>
                         <a href="{{ route('posts.show', ['post' => $post, 'user' => $user]) }}">

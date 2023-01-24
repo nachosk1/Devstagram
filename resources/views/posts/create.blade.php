@@ -10,12 +10,12 @@
 
 @section('contents')
     <div class="md:flex md:items-center">
-        <div class="md:w-1/2 px-10"> 
+        <div class="md:w-1/2 px-4"> 
             <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data" id="dropzone" class="dropzone border-dashed border-2 w-full h-96 rounded flex flex-col justify-center items-center">
                 @csrf
             </form>
         </div>
-        <div class="md:w-1/2 p-10 bg-white rounded-lg shadow-xl mt-10 md:mt-0">
+        <div class="md:w-1/2 sm:p-10 p-4 bg-white rounded-lg shadow-xl mt-10 md:mt-0 mx-4">
             <form action="{{ route('posts.store') }}" method="POST" novalidate>
                 @csrf
                 <div class="mb-5">
@@ -49,3 +49,4 @@
         </div>
     </div>
 @endsection
+

@@ -8,7 +8,7 @@
         <div class="md:w-6/12 p-5">
             <img src="{{ asset('img/registrar.jpg') }}" alt="imagen registrar usuario" class="">
         </div>
-        <div class="md:w-4/12 bg-white p-6 rounded-lg shadow-xl">
+        <div class="md:w-4/12 bg-white p-6 rounded-lg shadow-xl mx-4">
             <form action=" {{ route("register") }} " method="POST" novalidate>
                 @csrf
                 <div class="mb-5">
